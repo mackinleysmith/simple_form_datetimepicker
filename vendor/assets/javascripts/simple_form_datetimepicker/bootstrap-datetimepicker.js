@@ -1176,7 +1176,12 @@
     $.fn.datetimepicker = function (options) {
         return this.each(function () {
             var $this = $(this), data = $this.data('DateTimePicker');
-            if (!data) $this.data('DateTimePicker', new DateTimePicker(this, options));
+            if (!data) {
+              var dtp_data_options = $this.data('dtp-options');
+              if (dtp_data_options !== undefined)
+                $.extend(true, options, dtp_data_options);
+              $this.data('DateTimePicker', new DateTimePicker(this, options));
+            }
         });
     };
 
